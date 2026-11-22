@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "kickpro-staging",
+    "staging": "kickpro-staging",
+    "prod": "kickpro-prod",
+    "local": "demo-kickpro"
+  }
+}

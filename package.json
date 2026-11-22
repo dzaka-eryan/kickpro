@@ -1,0 +1,40 @@
+{
+  "name": "kickpro",
+  "version": "0.1.0",
+  "private": true,
+  "description": "KickPro — Platform Otomasi Event Mabar, Kas Komunitas & Hub Sparring Sepak Bola / Mini Soccer / Futsal",
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "build": "pnpm --filter @kickpro/shared build && pnpm --filter @kickpro/functions build && pnpm --filter @kickpro/web build",
+    "dev": "pnpm --filter @kickpro/shared build && pnpm --filter @kickpro/web dev",
+    "dev:all": "pnpm --filter @kickpro/shared build && concurrently -n emulators,web -c cyan,green \"pnpm emulators\" \"pnpm --filter @kickpro/web dev\"",
+    "emulators": "firebase emulators:start --project demo-kickpro",
+    "seed": "pnpm --filter @kickpro/shared build && tsx scripts/seed.ts",
+    "lint": "eslint .",
+    "typecheck": "pnpm --filter @kickpro/shared build && pnpm -r typecheck",
+    "test": "pnpm test:unit",
+    "test:unit": "vitest run --config vitest.config.ts",
+    "test:rules": "FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 vitest run --config vitest.rules.config.ts",
+    "test:rules:ci": "firebase emulators:exec --project demo-kickpro --only firestore \"vitest run --config vitest.rules.config.ts\"",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "@firebase/rules-unit-testing": "^4.0.1",
+    "@kickpro/shared": "workspace:*",
+    "@types/node": "^20.17.12",
+    "concurrently": "^9.1.2",
+    "eslint": "^9.18.0",
+    "firebase": "^11.2.0",
+    "firebase-admin": "^13.0.2",
+    "firebase-tools": "^13.31.1",
+    "prettier": "^3.4.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0",
+    "vitest": "^2.1.8"
+  }
+}

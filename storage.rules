@@ -1,0 +1,37 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidImageUpload() {
+      return request.resource.size < 5 * 1024 * 1024 &&
+             request.resource.contentType.matches('image/.*');
+    }
+
+    // Logo klub dan galeri kegiatan
+    match /clubs/{clubId}/{allPaths=**} {
+      allow read: if true;
+      allow write: if isSignedIn() && isValidImageUpload();
+    }
+
+    // Bukti booking lapangan event mabar & sparring
+    match /events/{eventId}/{allPaths=**} {
+      allow read: if true;
+      allow write: if isSignedIn() && isValidImageUpload();
+    }
+
+    // Foto profil pemain
+    match /users/{userId}/{allPaths=**} {
+      allow read: if true;
+      allow write: if isSignedIn() && request.auth.uid == userId && isValidImageUpload();
+    }
+
+    // Deny by default
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

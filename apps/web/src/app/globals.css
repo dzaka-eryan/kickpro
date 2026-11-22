@@ -1,0 +1,224 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-inter: "Inter", system-ui, -apple-system, sans-serif;
+    --font-plus-jakarta: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+
+    --background: 120 11% 97%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Emerald Stadion (#03251B) */
+    --primary: 162 85% 8%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 214 32% 91%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 25% 32%;
+
+    /* Kick Lime (#C9F31D) */
+    --accent: 72 90% 53%;
+    --accent-foreground: 162 85% 8%;
+
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 25% 86%;
+    --input: 214 25% 86%;
+    --ring: 162 85% 8%;
+
+    --radius: 0.75rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background:
+      radial-gradient(circle at 5% 2%, rgba(201, 243, 29, 0.12), transparent 24rem),
+      radial-gradient(circle at 96% 15%, rgba(16, 185, 129, 0.08), transparent 26rem),
+      #f5f7f5;
+    font-family: var(--font-inter);
+    @apply text-foreground antialiased selection:bg-lime selection:text-emerald-950;
+  }
+
+  body,
+  button,
+  input,
+  select,
+  textarea {
+    font-family: var(--font-inter);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-display {
+    font-family: var(--font-plus-jakarta), "Plus Jakarta Sans", sans-serif;
+  }
+}
+
+.app-panel {
+  animation: panelIn 0.32s ease both;
+}
+
+.slot-card {
+  min-height: 90px;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.slot-card.available:hover {
+  transform: translateY(-2px);
+  border-color: #10b981;
+  box-shadow: 0 10px 24px rgba(16, 185, 129, 0.12);
+}
+
+.slot-card.selected {
+  border-color: #03251b;
+  background: #c9f31d;
+  box-shadow: 0 10px 24px rgba(201, 243, 29, 0.3);
+  transform: translateY(-2px);
+}
+
+.slot-card.locked {
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(245, 158, 11, 0.04),
+    rgba(245, 158, 11, 0.04) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+
+.slot-card.paid {
+  background-image: linear-gradient(
+    135deg,
+    transparent 47%,
+    rgba(148, 163, 184, 0.35) 48%,
+    rgba(148, 163, 184, 0.35) 52%,
+    transparent 53%
+  );
+}
+
+.qr-pattern {
+  background-color: #fff;
+  background-image:
+    linear-gradient(90deg, #0b1713 10px, transparent 10px),
+    linear-gradient(#0b1713 10px, transparent 10px),
+    linear-gradient(90deg, transparent 20px, #0b1713 20px, #0b1713 30px, transparent 30px),
+    linear-gradient(transparent 20px, #0b1713 20px, #0b1713 30px, transparent 30px);
+  background-position:
+    0 0,
+    0 0,
+    0 0,
+    0 0;
+  background-size:
+    32px 32px,
+    32px 32px,
+    64px 64px,
+    64px 64px;
+  image-rendering: pixelated;
+}
+
+.qr-pattern::after {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border: 10px solid white;
+  background: #0b1713;
+  box-shadow:
+    inset 0 0 0 8px white,
+    inset 0 0 0 14px #0b1713;
+}
+
+.spinner {
+  width: 19px;
+  height: 19px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 999px;
+  animation: spin 0.8s linear infinite;
+}
+
+.success-check {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: drawCheck 0.6s 0.15s ease forwards;
+}
+
+.modal-enter {
+  animation: modalIn 0.28s ease both;
+}
+
+.backdrop-enter {
+  animation: fadeIn 0.2s ease both;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes drawCheck {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .slot-card {
+    min-height: 82px;
+  }
+}

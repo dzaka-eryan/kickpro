@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+functions/lib/
+.next/
+out/
+.turbo/
+*.tsbuildinfo
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+firebase-debug*.log
+firestore-debug*.log
+ui-debug*.log
+pubsub-debug*.log
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Firebase & testing
+.firebase/
+.custom-events.json
+.community-accounts.json
+coverage/
+playwright-report/
+test-results/
+
+# OS
+.DS_Store
